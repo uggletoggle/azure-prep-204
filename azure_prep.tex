@@ -1,0 +1,97 @@
+\documentclass[a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+\usepackage[hidelinks]{hyperref}
+\usepackage{parskip}
+\usepackage{tikz}
+\usetikzlibrary{positioning, shapes, shadows, arrows}
+
+\newcommand{\logoPortada}{images/azure.png}
+\newcommand{\diagramaUsoWorkflows}{images/diagram.png}
+
+\begin{document}
+    \begin{titlepage}
+    \centering 
+    \includegraphics[width=0.55\textwidth]{\logoPortada}\par
+    {\scshape\LARGE \textbf{AZ-204 Exam Prep}}
+    \end{titlepage}
+
+
+    \clearpage
+    \tableofcontents
+    \clearpage
+
+
+    \section{Día 1}\par\vspace{0.2cm}
+    
+    \subsection {Objetivos}
+    Evaluar los servicios de Azure para integración y automatización de procesos para distintos escenarios.
+
+    \subsection {Workflows}
+    Los workflows son aquellos procesos de negocio que están modelados en software. Las tecnologías que Azure ofrece para construir e implementar workflows que integran múltiples sistemas son:
+
+    \begin{itemize}
+        \item Logic Apps
+        \item Microsoft Power Automate
+        \item WebJobs
+        \item Azure Functions
+    \end{itemize}
+
+    \vspace{0.2cm}
+
+    Las característiscas que estas tecnologías comparten en común son:
+
+    \begin{itemize}
+        \item Todas aceptan \textbf{inputs}
+        \item Pueden ejecutar \textbf{acciones}
+        \item Pueden incluir \textbf{condiciones}
+        \item Pueden producir \textbf{outputs}
+    \end{itemize}
+
+    \begin{figure*}[b]
+        \tikzstyle{purple} = [rectangle, draw=black, rounded corners, fill=blue!40, text centered, anchor=north, text=white, text width=3.5cm]
+
+        \tikzstyle{line}=[draw, -latex']
+
+        \centering
+        \begin{tikzpicture}[align=center,  node distance=1.5cm]
+            \node (services) [purple]{Servicios};    
+            \node (design) [purple, below left=1cm and 0.2cm of services]{Design First};    
+            \node (code) [purple, below right=1cm and 0.2cm of services]{Code First};    
+
+            % \path [line] (services) -- [design];
+
+            \node (power) [purple, below=1cm of design]{Power Automate};    
+            \node (logic) [purple, below=2cm of design]{Logic Apps};    
+            
+            \node (webjobs) [purple, below=1cm of code]{WebJobs};    
+            \node (functions) [purple, below=2cm of code]{Azure Functions};    
+            
+        \end{tikzpicture}
+
+        \caption{Clasificación de Servicios de Integración y Automatización Procesos}
+    \end{figure*}
+
+    \clearpage
+    \subsection{Design First}
+
+    Microsoft Power Automate está construido on top de Logic Apps, por lo que ambos pueden usar los mismos conectores que ya vienen incluidos en la plataforma. Logic Apps permite crear también conectores custom o editar los workflows por código (json definitions).
+
+    Aunque ambos pueden ser editados de manera gráfica y presentan los workflows de manera amena para que pueda ser entendida por business analysts y gente no relacionada de forma directa a IT o Desarrollo, la creación de workflows en Logic Apps es más restrictiva y esa orientada a casos de integración más avanzados que Automate, siendo este último la herramienta predilecta para los escenarios en los que los workflows requieran de un equipo no-técnico para su creación y mantenimiento.
+
+    \subsection{Code First}
+    Para casos donde se requiera mayor granularidad sobre los procesos y su performance y no sea requisito que personal no técnico pueda manipularlos, la elección recaerá sobre una de las opciones de Code First.
+
+    \textbf{WebJobs} existe como parte de Azure App Service y se recomienda su uso en caso de querer tomar ventaja de estar utilizando un App Service existente o de querer tener mayor capacidad de control sobre el host que está escuchando los eventos que disparan el código.
+
+    Su SDK sólo soporta C\# y el NuGet package manager.
+
+    \textbf{Azure Functions} será la opción prefereida en el approach code-first cuando las condiciones anteriores no se cumplan, debido a su \textbf{plan de utilización por consumo} y a su mayor capacidad de integración de su SDK con varios lenguajes y manejadores de paquete (NuGet y NPM).
+
+    \vspace{0.7cm}
+
+    \includegraphics[width=1.0\textwidth]{\diagramaUsoWorkflows}\par
+    
+\end{document}
